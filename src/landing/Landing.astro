@@ -1,0 +1,36 @@
+---
+import '../estilos/global.css'; // Importa el archivo global.css dedicado exclusivamente al registro centralizado
+
+import Encabezado from './componentes/Encabezado.astro';
+import Hero from './componentes/Hero.astro';
+import Servicios from './componentes/Servicios.astro';
+import SobreNosotros from './componentes/SobreNosotros.astro';
+import Testimonios from './componentes/Testimonios.astro';
+import Contacto from './componentes/Contacto.astro';
+import Pie from './componentes/Pie.astro';
+import BotonWhatsappFlotante from './componentes/BotonWhatsappFlotante.astro';
+
+// Nota: DemoAgenteIA.astro no se importa aún (fase 2).
+---
+
+<div class="contenedor-landing">
+  <Encabezado />
+  
+  <main>
+    <Hero />
+    <Servicios />
+    <SobreNosotros />
+    <Testimonios />
+    <Contacto />
+  </main>
+
+  <Pie />
+  <BotonWhatsappFlotante />
+</div>
+
+<style>
+  .contenedor-landing {
+    position: relative;
+    z-index: 10; /* Se colocará por encima del canvas 3D */
+  }
+</style>

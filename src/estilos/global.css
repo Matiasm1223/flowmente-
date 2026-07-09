@@ -1,0 +1,68 @@
+/* ==========================================================================
+   GLOBAL.CSS - REGISTRO CENTRALIZADO DE DISEÑO
+   ========================================================================== */
+
+/* 
+   Nota: Las variables CSS (--color-*) son generadas dinámicamente en 
+   index.astro desde src/compartido/constantes.ts para mantener una 
+   única fuente de verdad. Este archivo las consume y establece las reglas base.
+*/
+
+/* 
+   PALETA DE COLORES (Referencia):
+   - Primario: #1AB8B8 (Turquesa Tecnológico) -> --color-primario
+   - Secundario: #48D070 (Verde Automatización) -> --color-secundario
+   - Fondo Oscuro: #05060A (Negro Profundo) -> --color-fondo-oscuro
+   - Fondo Hero: #0A2840 (Azul Nocturno) -> --color-fondo-hero
+   - Acento: #88E8B8 (Menta Brillante) -> --color-acento
+   - Texto Claro: #EAF1F7 (Blanco Azulado) -> --color-texto-claro
+   - Fondo Claro Opcional: #F4F8F9 -> --color-fondo-claro-opcional
+*/
+
+/* 
+   TIPOGRAFÍAS (Referencia):
+   - Títulos: 'Plus Jakarta Sans' -> --fuente-titulos
+   - Cuerpo: 'Inter' -> --fuente-cuerpo
+   - Datos numéricos: 'Space Grotesk' -> --fuente-datos
+*/
+
+/* Reseteo básico y configuración global */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--fuente-cuerpo), sans-serif;
+  background-color: var(--color-fondo-oscuro);
+  color: var(--color-texto-claro);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* El scroll será controlado por GSAP/lenis posteriormente */
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--fuente-titulos), sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  color: var(--color-primario);
+}
+
+a {
+  color: var(--color-primario);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-acento);
+}
+
+/* Clases utilitarias de uso general */
+.texto-destacado {
+  font-family: var(--fuente-datos), sans-serif;
+  color: var(--color-secundario);
+}

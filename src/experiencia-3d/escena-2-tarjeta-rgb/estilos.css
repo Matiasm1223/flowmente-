@@ -1,0 +1,17 @@
+/* Estilos para el borde RGB de la tarjeta */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.tarjeta-rgb {
+  background: conic-gradient(from var(--angle), #48D070, #1AB8B8, #48D070);
+  animation: rotate-angle 4s linear infinite;
+}
+
+@keyframes rotate-angle {
+  to {
+    --angle: 360deg;
+  }
+}

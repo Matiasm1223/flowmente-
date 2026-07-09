@@ -1,0 +1,10 @@
+{
+  "glsllint.glslangValidatorArgs": [
+    "--target-env",
+    "opengl"
+  ],
+  "shader.glslangValidatorArgs": [
+    "--target-env",
+    "opengl"
+  ]
+}

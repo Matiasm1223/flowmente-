@@ -1,0 +1,7 @@
+/* Estilos principales de la landing page */
+.landing-contenedor {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  z-index: 10;
+}

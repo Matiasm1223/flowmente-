@@ -1,0 +1,83 @@
+---
+// Componente Hero: Primer bloque de la landing. 
+// Fallback para SEO y Accesibilidad en caso de que la experiencia 3D no cargue o se desactive.
+---
+
+<section id="hero" class="seccion-hero" aria-labelledby="titulo-principal">
+  <div class="contenedor-contenido">
+    <!-- El H1 real para SEO/a11y, inicialmente invisible para que el 3D tome el foco visual -->
+    <h1 id="titulo-principal" class="titulo-accesible">
+      Automatizá tu negocio con webs inteligentes y agentes de IA que trabajan por vos
+    </h1>
+    
+    <!-- Subtítulo de la propuesta de valor -->
+    <p class="subtitulo">
+      Desarrollo web, automatización con n8n y agentes de IA en una sola marca — para pymes que quieren dejar de perder horas en tareas repetitivas.
+    </p>
+    
+    <!-- CTA Principal -->
+    <div class="contenedor-acciones">
+      <a href="#contacto" class="boton-cta primario">Agendar diagnóstico gratis</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .seccion-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 20;
+    
+    /* Inicialmente oculto para ceder el protagonismo al canvas 3D */
+    opacity: 0; 
+    /* Posteriormente GSAP lo mostrará en el momento adecuado */
+  }
+
+  .contenedor-contenido {
+    max-width: 800px;
+    text-align: center;
+  }
+
+  .titulo-accesible {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .subtitulo {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--color-texto-claro);
+    margin-bottom: 2rem;
+  }
+
+  .boton-cta {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-family: var(--fuente-cuerpo);
+    font-weight: 600;
+    border-radius: var(--radio-borde-boton);
+    transition: all 0.3s ease;
+  }
+
+  .boton-cta.primario {
+    background-color: var(--color-secundario);
+    color: var(--color-fondo-oscuro);
+    box-shadow: var(--sombra-boton);
+  }
+
+  .boton-cta.primario:hover {
+    background-color: var(--color-acento);
+    transform: translateY(-2px);
+  }
+
+  /* Si el usuario prefiere reducir las animaciones, mostramos el contenido inmediatamente */
+  @media (prefers-reduced-motion: reduce) {
+    .seccion-hero {
+      opacity: 1;
+    }
+  }
+</style>

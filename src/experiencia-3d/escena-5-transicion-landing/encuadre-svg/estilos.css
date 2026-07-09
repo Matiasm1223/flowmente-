@@ -1,0 +1,14 @@
+/* Estilos para el encuadre SVG */
+.encuadre-svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.encuadre-path {
+  fill: none;
+  stroke: #1AB8B8;
+  stroke-width: 2;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}

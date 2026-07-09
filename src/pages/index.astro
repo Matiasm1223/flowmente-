@@ -1,0 +1,273 @@
+---
+import {
+  paletaColores,
+  tipografias,
+  estilosEstructurales,
+} from "../compartido/constantes";
+import Landing from "../landing/Landing.astro";
+
+// Objeto Schema Markup (JSON-LD)
+const schemaMarkup = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://flowmente.com/#organization",
+      name: "Flowmente",
+      description:
+        "Desarrollo web, automatización n8n y agentes de IA para pymes.",
+      url: "https://flowmente.com",
+      email: "flowmentee@gmail.com",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Buenos Aires",
+        addressCountry: "AR",
+      },
+    },
+    {
+      "@type": "Service",
+      serviceType: "Desarrollo Web",
+      provider: { "@id": "https://flowmente.com/#organization" },
+    },
+    {
+      "@type": "Service",
+      serviceType: "Automatización de Procesos (n8n)",
+      provider: { "@id": "https://flowmente.com/#organization" },
+    },
+    {
+      "@type": "Service",
+      serviceType: "Agentes de Inteligencia Artificial y Chatbots",
+      provider: { "@id": "https://flowmente.com/#organization" },
+    },
+  ],
+};
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>
+      Flowmente — Desarrollo web, automatización n8n y agentes de IA para pymes
+    </title>
+    <meta
+      name="description"
+      content="Flowmente diseña páginas web de alto rendimiento y automatiza tus procesos con n8n e inteligencia artificial. Ahorrá tiempo, ganá clientes y escalá tu pyme."
+    />
+
+    <!-- Fuentes (Google Fonts como ejemplo de implementación) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700&family=Space+Grotesk:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Schema Markup -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(schemaMarkup)}
+    />
+
+    <!-- Script síncrono bloqueante para evitar flicker de scroll (Capa 0) -->
+    <script is:inline>
+      document.documentElement.classList.add("scroll-bloqueado");
+    </script>
+    <style is:inline>
+      html.scroll-bloqueado {
+        overflow: hidden !important;
+        height: 100vh !important;
+      }
+    </style>
+
+    <!-- Inyección dinámica de variables de CSS como única fuente de verdad -->
+    <style
+      is:global
+      define:vars={{
+        "color-primario": paletaColores.primario,
+        "color-secundario": paletaColores.secundario,
+        "color-fondo-oscuro": paletaColores.fondoOscuro,
+        "color-fondo-hero": paletaColores.fondoHero,
+        "color-acento": paletaColores.acento,
+        "color-texto-claro": paletaColores.textoClaro,
+        "color-fondo-claro-opcional": paletaColores.fondoClaroOpcional,
+        "fuente-titulos": tipografias.titulos,
+        "fuente-cuerpo": tipografias.cuerpo,
+        "fuente-datos": tipografias.datos,
+        "radio-borde-boton": estilosEstructurales.radioBordeBoton,
+        "radio-borde-tarjeta": estilosEstructurales.radioBordeTarjeta,
+        "sombra-tarjeta": estilosEstructurales.sombraTarjeta,
+        "sombra-boton": estilosEstructurales.sombraBoton,
+      }}
+    >
+      :root {
+        --color-primario: var(--color-primario);
+        --color-secundario: var(--color-secundario);
+        --color-fondo-oscuro: var(--color-fondo-oscuro);
+        --color-fondo-hero: var(--color-fondo-hero);
+        --color-acento: var(--color-acento);
+        --color-texto-claro: var(--color-texto-claro);
+        --color-fondo-claro-opcional: var(--color-fondo-claro-opcional);
+        --fuente-titulos: var(--fuente-titulos);
+        --fuente-cuerpo: var(--fuente-cuerpo);
+        --fuente-datos: var(--fuente-datos);
+        --radio-borde-boton: var(--radio-borde-boton);
+        --radio-borde-tarjeta: var(--radio-borde-tarjeta);
+        --sombra-tarjeta: var(--sombra-tarjeta);
+        --sombra-boton: var(--sombra-boton);
+      }
+    </style>
+  </head>
+  <style>
+    /* Estilos base */
+    body {
+      height: 1000vh; /* 100% del alto de la pantalla */
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background-color: var(--color-fondo-oscuro);
+      color: var(--color-texto-claro);
+      font-family: var(--fuente-cuerpo);
+    }
+
+    #lienzo-3d {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+      /* Prevenir selección en el canvas */
+      user-select: none;
+    }
+
+    /* Indicador visual de scroll */
+    .indicador-scroll {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      z-index: 50;
+    }
+
+    .indicador-scroll.visible {
+      opacity: 1;
+    }
+
+    .indicador-scroll span {
+      color: var(--color-primario);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .indicador-scroll svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: var(--color-primario);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .indicador-scroll.visible svg {
+        animation: rebote 2s infinite;
+      }
+    }
+
+    @keyframes rebote {
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(10px);
+      }
+      60% {
+        transform: translateY(5px);
+      }
+    }
+  </style>
+  <body>
+    <!-- Contenedor principal para la experiencia 3D (canvas) -->
+    <canvas id="lienzo-3d" aria-hidden="true"></canvas>
+
+    <!-- Componente Landing que contiene el flujo de conversión -->
+    <Landing />
+
+    <!-- Indicador visual de scroll post-intro -->
+    <div id="indicador-scroll" class="indicador-scroll" aria-hidden="true">
+      <span>Deslizá para explorar</span>
+      <svg viewBox="0 0 24 24">
+        <path d="M6 9l6 6 6-6"></path>
+      </svg>
+    </div>
+
+    <!-- Inicializador de la lógica 3D -->
+    <script>
+      import { GestorEscena } from "../experiencia-3d/nucleo/gestorEscena";
+      import { BucleRender } from "../experiencia-3d/nucleo/bucleRender";
+      import { ControladorScroll } from "../experiencia-3d/nucleo/controladorScroll";
+      import { EscenaLogoF } from "../experiencia-3d/escena-1-logo-f/EscenaLogoF";
+      import { Redimension } from "../experiencia-3d/nucleo/redimension";
+
+      const canvas = document.getElementById("lienzo-3d") as HTMLCanvasElement;
+      if (canvas) {
+        // Inicializar Gestor de Escena
+        const gestorEscena = new GestorEscena(canvas);
+        (window as any).gestorEscena = gestorEscena; // PARA DEBUGGING
+
+        // Manejador de Resize
+        const redimension = new Redimension(gestorEscena);
+
+        // Bucle Principal
+        const bucle = new BucleRender(gestorEscena);
+        bucle.iniciar();
+
+        // Control de Scroll se inicializará por demanda cuando una escena lo requiera
+
+        // Montar Escena 1
+        const escenaLogo = new EscenaLogoF();
+
+        escenaLogo.inicializar(gestorEscena).then(() => {
+          bucle.registrarEscena(escenaLogo);
+
+          // Asegurar barreras de la Capa 1 y 2
+          ControladorScroll.bloquearScrollParaIntro();
+
+          // Timeout de seguridad: Si algo falla y la animación no termina en 15s, forzar desbloqueo
+          const timeoutSeguridad = setTimeout(() => {
+            console.warn(
+              "Timeout de seguridad alcanzado: Forzando desbloqueo de scroll.",
+            );
+            ControladorScroll.desbloquearScroll();
+          }, 10000);
+
+          // Esperar a que la escena termine su timeline y entonces desbloquear
+          if (escenaLogo.promesaIntro) {
+            escenaLogo.promesaIntro.then(() => {
+              clearTimeout(timeoutSeguridad);
+              ControladorScroll.desbloquearScroll();
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
