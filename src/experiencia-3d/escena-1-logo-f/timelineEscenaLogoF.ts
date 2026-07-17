@@ -57,6 +57,9 @@ export class LineaTiempoEscenaLogoF {
         ease: 'power2.out'
       });
 
+      // Añadir 0.5s de espera para que las partículas desaparezcan por completo (timeout de 1000ms en activar())
+      tl.to({}, { duration: 0.5 });
+
       // Fin. La animación concluye y las partículas se quedan esparcidas orgánicamente por su propio uTime.
       // El logo no vuelve a aparecer y no hay rotaciones post-explosión extras pedidas por especificación.
     });

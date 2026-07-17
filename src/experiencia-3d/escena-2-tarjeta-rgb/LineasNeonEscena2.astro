@@ -1,0 +1,54 @@
+---
+import { paletaColores } from "../../compartido/constantes";
+
+// Extraemos los colores exactos del brand sin hardcodear (Regla de marca #1)
+const color1 = paletaColores.primario;   // Turquesa
+const color2 = paletaColores.primario;   // Turquesa
+const color3 = paletaColores.secundario; // Verde
+const color4 = paletaColores.secundario; // Verde
+const color5 = paletaColores.acento;     // Menta
+---
+
+<div id="contenedor-lineas-neon" class="contenedor-lineas-neon" aria-hidden="true">
+  <svg id="svg-lineas-neon" width="100%" height="100%" preserveAspectRatio="none">
+    <defs>
+      <!-- Filtro de glow suave (stdDeviation bajo para no afectar rendimiento) -->
+      <filter id="glow-neon" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="3" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+    </defs>
+    <!-- Los paths se dibujan dinámicamente en TS (0 recalculos en resize) -->
+    <path class="linea-neon linea-1" data-color={color1} stroke={color1} />
+    <path class="linea-neon linea-2" data-color={color2} stroke={color2} />
+    <path class="linea-neon linea-3" data-color={color3} stroke={color3} />
+    <path class="linea-neon linea-4" data-color={color4} stroke={color4} />
+    <path class="linea-neon linea-5" data-color={color5} stroke={color5} />
+  </svg>
+</div>
+
+<style>
+  .contenedor-lineas-neon {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    /* Z-index 10: Detrás de la tarjeta (100) pero delante del canvas (-1) */
+    z-index: 10; 
+  }
+
+  .linea-neon {
+    fill: none;
+    /* Grosor menor a 3px como especificado */
+    stroke-width: 1.5px;
+    stroke-linecap: round;
+    filter: url(#glow-neon);
+    opacity: 0; /* Estado inicial invisible, GSAP tomará el control */
+  }
+</style>

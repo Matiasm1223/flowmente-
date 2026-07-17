@@ -5,6 +5,8 @@ import {
   estilosEstructurales,
 } from "../compartido/constantes";
 import Landing from "../landing/Landing.astro";
+import TarjetaEscena2 from "../experiencia-3d/escena-2-tarjeta-rgb/TarjetaEscena2.astro";
+import LineasNeonEscena2 from "../experiencia-3d/escena-2-tarjeta-rgb/LineasNeonEscena2.astro";
 
 // Objeto Schema Markup (JSON-LD)
 const schemaMarkup = {
@@ -211,6 +213,17 @@ const schemaMarkup = {
     <!-- Componente Landing que contiene el flujo de conversión -->
     <Landing />
 
+    <!-- Componente de Tarjeta animada (Astro, sin React) para la Escena 2 -->
+    <TarjetaEscena2 />
+    <LineasNeonEscena2 />
+    <!-- ESTA ES LA CARRETERA PARA LA ESCENA 2 -->
+    <!-- Le damos un alto grande para que el usuario tenga espacio para scrollear -->
+    <div
+      class="escena-2-trigger"
+      style="height: 3000px; width: 100%; pointer-events: none;"
+    >
+    </div>
+
     <!-- Indicador visual de scroll post-intro -->
     <div id="indicador-scroll" class="indicador-scroll" aria-hidden="true">
       <span>Deslizá para explorar</span>
@@ -226,6 +239,8 @@ const schemaMarkup = {
       import { ControladorScroll } from "../experiencia-3d/nucleo/controladorScroll";
       import { EscenaLogoF } from "../experiencia-3d/escena-1-logo-f/EscenaLogoF";
       import { Redimension } from "../experiencia-3d/nucleo/redimension";
+      import { LineaTiempoEscena2 } from "../experiencia-3d/escena-2-tarjeta-rgb/linea-tiempo";
+      import { AnimacionLineasNeon } from "../experiencia-3d/escena-2-tarjeta-rgb/animacion-lineas-neon";
 
       const canvas = document.getElementById("lienzo-3d") as HTMLCanvasElement;
       if (canvas) {
@@ -241,6 +256,13 @@ const schemaMarkup = {
         bucle.iniciar();
 
         // Control de Scroll se inicializará por demanda cuando una escena lo requiera
+
+        // Inicializar la tarjeta de la Escena 2
+        const lineaTiempoEscena2 = new LineaTiempoEscena2();
+        LineaTiempoEscena2.inicializar();
+        
+        // Inicializar animacion independiente de lineas neon
+        AnimacionLineasNeon.inicializar();
 
         // Montar Escena 1
         const escenaLogo = new EscenaLogoF();

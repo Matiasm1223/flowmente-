@@ -1,0 +1,90 @@
+---
+
+---
+
+<div
+  id="contenedor-tarjeta-post-explosion"
+  aria-hidden="true"
+  role="dialog"
+  aria-label="Mensaje de bienvenida"
+  class="escena-contenedor"
+>
+  <!-- Capa 1: Exclusiva para la animación de entrada/salida con GSAP -->
+  <div id="tarjeta-post-explosion" class="tarjeta-gsap">
+    <!-- Capa 2: Exclusiva para el diseño y la interacción CSS (Hover) -->
+    <div class="tarjeta-contenido">
+      <h2>
+        DISEÑAMOS COMO <span class="resaltado">ARTISTAS</span>, PROGRAMAMOS COMO <span
+          class="resaltado2">INGENIEROS</span
+        >
+      </h2>
+    </div>
+  </div>
+</div>
+<style>
+  /* Contenedor principal inactivo para el mouse */
+  .escena-contenedor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    z-index: 100;
+  }
+  /* Capa manejada por GSAP */
+  .tarjeta-gsap {
+    transform: translateY(-50px);
+    pointer-events: auto; /* Reactivamos el mouse solo aquí */
+    z-index: 10;
+  }
+  /* Diseño de la tarjeta y estado base para la animación CSS */
+  .tarjeta-contenido {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radio-borde-tarjeta, 16px);
+    padding: 2.5rem 3rem;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+    /* Configuración de la animación delicada */
+    transition:
+      transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+      box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+      border-color 0.4s ease;
+    will-change: transform, box-shadow;
+  }
+  /* Efecto de levitación sutil al pasar el cursor */
+  .tarjeta-contenido:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow:
+      0 15px 35px rgba(0, 0, 0, 0.3),
+      0 0 25px rgba(26, 247, 239, 0.15); /* Resplandor color neón */
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+  /* Estilos tipográficos */
+  h2 {
+    font-family: var(--fuente-titulos);
+    color: var(--color-texto-claro, #fff);
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 1px;
+    letter-spacing: 0.03em;
+    line-height: 1.5;
+  }
+  .resaltado {
+    color: var(--color-secundario);
+    font-weight: 700;
+  }
+  .resaltado2 {
+    color: var(--color-primario);
+    -webkit-text-stroke: 1px var(--color-primario); /* Unificado al color neón */
+    font-weight: 600;
+  }
+</style>
